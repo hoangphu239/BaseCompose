@@ -1,6 +1,6 @@
 # Jetpack Compose MVVM Crypto App.
 
-Movie App developed with Kotlin
+Crypto App developed with Kotlin
 
 # Architecture: Clean Architecture
 
