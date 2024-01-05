@@ -15,9 +15,8 @@ jobs:
         
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
-        with: 
-           java-version: '1.8'
-           distribution: 'adopt'
+        with:
+           java-version: 1.8
         
       - name: Build with Gradle
         run: ./gradlew build
