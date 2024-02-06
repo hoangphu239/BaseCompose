@@ -8,10 +8,7 @@ import com.plcoding.cryptocurrencyappyt.common.Resource
 import com.plcoding.cryptocurrencyappyt.domain.model.Coin
 import com.plcoding.cryptocurrencyappyt.domain.use_case.get_coins.CoinsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,5 +57,9 @@ class CoinListViewModel @Inject constructor(
         coinsUseCase.getCoinsLocal().onEach {
             _stateLocal.value = _stateLocal.value.copy(coins = it)
         }.launchIn(viewModelScope)
+
+        viewModelScope.launch {
+            coinsUseCase.getCoinsLocal().stateIn(scope = this, started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000), initialValue = null)
+        }
     }
 }

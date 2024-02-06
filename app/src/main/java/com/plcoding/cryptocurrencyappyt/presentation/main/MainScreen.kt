@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.cryptocurrencyappyt.presentation.route.BottomNavGraph
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 
 @Composable
 fun MainScreen() {
@@ -35,12 +36,13 @@ fun MainScreen() {
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         ItemBottomBar.CoinList,
-        ItemBottomBar.Bookmark
+        ItemBottomBar.Bookmark,
+        ItemBottomBar.Movie,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation {
+    BottomNavigation (backgroundColor = AppTheme.colors.background) {
         screens.forEach { screen ->
             AddItem(
                 screen = screen,

@@ -7,8 +7,11 @@ import com.plcoding.cryptocurrencyappyt.data.local.CoinDao
 import com.plcoding.cryptocurrencyappyt.data.local.CoinDatabase
 import com.plcoding.cryptocurrencyappyt.data.manager.LocalUserMangerImpl
 import com.plcoding.cryptocurrencyappyt.data.remote.CoinPaprikaApi
+import com.plcoding.cryptocurrencyappyt.data.remote.MovieApi
 import com.plcoding.cryptocurrencyappyt.data.repository.CoinRepositoryImpl
+import com.plcoding.cryptocurrencyappyt.data.repository.MovieRepositoryImpl
 import com.plcoding.cryptocurrencyappyt.domain.repository.CoinRepository
+import com.plcoding.cryptocurrencyappyt.domain.repository.MovieRepository
 import com.plcoding.cryptocurrencyappyt.domain.use_case.manger.LocalUserManger
 import com.plcoding.cryptocurrencyappyt.domain.use_case.manger.app_entry.AppEntryUseCases
 import com.plcoding.cryptocurrencyappyt.domain.use_case.manger.app_entry.ReadAppEntry
@@ -56,8 +59,24 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideMovieApi(): MovieApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL_MOVIE)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(MovieApi::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun provideCoinRepository(api: CoinPaprikaApi, coinDao: CoinDao): CoinRepository {
         return CoinRepositoryImpl(api, coinDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(api: MovieApi): MovieRepository {
+        return MovieRepositoryImpl(api)
     }
 
     @Provides

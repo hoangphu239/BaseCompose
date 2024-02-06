@@ -8,16 +8,20 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.plcoding.cryptocurrencyappyt.common.Dimens
 import com.plcoding.cryptocurrencyappyt.domain.model.Coin
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 
 @Composable
 fun CoinListItem(
@@ -25,37 +29,36 @@ fun CoinListItem(
     onItemClick: (Coin) -> Unit,
     onClick: (Coin) -> Unit
 ) {
+    var isFavourite by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick(coin) }
-            .padding(horizontal = Dimens.MediumPadding1, vertical = Dimens.MediumPadding),
+            .padding(
+                horizontal = Dimens.MediumPadding1,
+                vertical = Dimens.MediumPadding
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = CenterVertically
     ) {
         Text(
             text = "${coin.rank}. ${coin.name} (${coin.symbol})",
-            style = MaterialTheme.typography.body1,
-            overflow = TextOverflow.Ellipsis
+            style = AppTheme.typography.body,
+            overflow = TextOverflow.Ellipsis,
+            color = AppTheme.colors.textPrimary,
         )
-
-        Row {
-            Text(
-                text = if(coin.isActive) "active" else "inactive",
-                color = if(coin.isActive) Color.Green else Color.Red,
-                fontStyle = FontStyle.Italic,
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.body2,
-                modifier = Modifier.align(CenterVertically)
+        IconButton(
+            onClick = {
+                isFavourite = !isFavourite
+                onClick(coin)
+            },
+        ) {
+            Icon(
+                imageVector = if (isFavourite || coin.favourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                contentDescription = null,
+                tint = Color.Red
             )
-            Spacer(modifier = Modifier.width(10.dp))
-            IconButton(
-                onClick = { onClick(coin) },
-
-            ) {
-                Icon(imageVector = Icons.Default.Favorite, contentDescription = null, tint = Color.Green)
-            }
         }
-
     }
 }

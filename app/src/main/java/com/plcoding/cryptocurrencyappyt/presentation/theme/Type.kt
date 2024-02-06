@@ -1,36 +1,57 @@
 package com.plcoding.cryptocurrencyappyt.presentation.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.plcoding.cryptocurrencyappyt.R
 
-// Set of Material typography styles to start with
-val Typography = Typography(
-    h1 = TextStyle(
+
+private val rubik = FontFamily(
+    Font(R.font.rubik_regular, FontWeight.Normal)
+)
+
+private val openSans = FontFamily(
+    Font(R.font.open_sans_regular, FontWeight.Normal)
+)
+
+data class AppTypography(
+    val h1: TextStyle = TextStyle(
+        fontFamily = rubik,
         fontWeight = FontWeight.Bold,
         fontSize = 30.sp,
     ),
-    h2 = TextStyle(
+    val h2: TextStyle = TextStyle(
+        fontFamily = rubik,
         fontWeight = FontWeight.SemiBold,
         fontSize = 24.sp
     ),
-    h3 = TextStyle(
-        fontWeight = FontWeight.Medium,
+    val title: TextStyle = TextStyle(
+        fontFamily = openSans,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp
     ),
-    h4 = TextStyle(
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
-    ),
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+    val subtitle: TextStyle = TextStyle(
+        fontFamily = openSans,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
-    body2 = TextStyle(
+    val body: TextStyle = TextStyle(
+        fontFamily = openSans,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 16.sp
+    ),
+    val button: TextStyle = TextStyle(
+        fontFamily = rubik,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+    val caption: TextStyle = TextStyle(
+        fontFamily = openSans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
     )
 )
+internal val LocalTypography = compositionLocalOf { AppTypography() }

@@ -11,8 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.plcoding.cryptocurrencyappyt.common.Dimens
-import com.plcoding.cryptocurrencyappyt.presentation.theme.ButtonBg
-import com.plcoding.cryptocurrencyappyt.presentation.theme.WhiteGray
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 
 
 @Composable
@@ -20,8 +19,8 @@ fun PagerIndicator(
     modifier: Modifier = Modifier,
     pageSize: Int,
     selectPage: Int,
-    selectColor: Color = ButtonBg,
-    unSelectColor: Color = WhiteGray) {
+    selectColor: Color = AppTheme.colors.button,
+    unSelectColor: Color = AppTheme.colors.textSecondary) {
 
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         repeat(pageSize) { page ->

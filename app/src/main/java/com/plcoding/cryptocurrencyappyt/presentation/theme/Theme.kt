@@ -1,37 +1,40 @@
 package com.plcoding.cryptocurrencyappyt.presentation.theme
 
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 
-private val DarkColorPalette = darkColors(
-    primary = ColorPrimary,
-    background = DarkGray,
-    onBackground = TextWhite,
-    onPrimary = DarkGray
-)
+object AppTheme {
+    val colors: AppColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalColors.current
 
-private val LightColorPalette = lightColors(
-    primary = ColorPrimary,
-    background = Color.White,
-    onBackground = MediumGray,
-    onPrimary = DarkGray
-)
+    val typography: AppTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalTypography.current
+
+    val dimensions: AppDimensions
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDimensions.current
+}
 
 @Composable
-fun CryptoTheme(darkTheme: Boolean = true, content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+fun CryptoTheme(
+    colors: AppColors = AppTheme.colors,
+    typography: AppTypography = AppTheme.typography,
+    dimensions: AppDimensions = AppTheme.dimensions,
+    content: @Composable() () -> Unit) {
 
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    val rememberedColors = remember { colors.copy() }.apply { updateColorsFrom(colors) }
+    CompositionLocalProvider(
+        LocalColors provides rememberedColors,
+        LocalDimensions provides dimensions,
+        LocalTypography provides typography
+    ) {
+        content()
+    }
 }

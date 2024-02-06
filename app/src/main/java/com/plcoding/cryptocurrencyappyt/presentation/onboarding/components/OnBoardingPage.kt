@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.plcoding.cryptocurrencyappyt.common.Dimens
 import com.plcoding.cryptocurrencyappyt.presentation.onboarding.Page
 import com.plcoding.cryptocurrencyappyt.presentation.onboarding.pages
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 import com.plcoding.cryptocurrencyappyt.presentation.theme.CryptoTheme
 
 @Composable
@@ -38,7 +39,7 @@ fun OnBoardingPage(
         Text(
             text = page.title,
             modifier = Modifier.padding(horizontal = Dimens.MediumPadding1),
-            style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+            style = AppTheme.typography.subtitle.copy(fontWeight = FontWeight.Bold),
             color = colorResource(id = R.color.display_small)
         )
         Text(

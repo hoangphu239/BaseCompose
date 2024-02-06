@@ -19,4 +19,10 @@ sealed class ItemBottomBar(
         title = "Bookmark",
         icon = R.drawable.ic_bookmark
     )
+
+    object Movie : ItemBottomBar(
+        route = Screen.MovieListScreen.route,
+        title = "Movie",
+        icon = R.drawable.ic_bookmark
+    )
 }

@@ -22,6 +22,7 @@ import com.plcoding.cryptocurrencyappyt.data.remote.dto.TeamMember
 import com.plcoding.cryptocurrencyappyt.domain.model.CoinDetail
 import com.plcoding.cryptocurrencyappyt.presentation.coin_detail.components.CoinTag
 import com.plcoding.cryptocurrencyappyt.presentation.coin_detail.components.TeamListItem
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 
 
 @Composable
@@ -38,34 +39,20 @@ fun CoinDetailScreen(
                     contentPadding = PaddingValues(20.dp)
                 ) {
                     item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = "${coin.rank}. ${coin.name} (${coin.symbol})",
-                                style = MaterialTheme.typography.h2,
-                                modifier = Modifier.weight(8f)
-                            )
-                            Text(
-                                text = if (coin.isActive) "active" else "inactive",
-                                color = if (coin.isActive) Color.Green else Color.Red,
-                                fontStyle = FontStyle.Italic,
-                                textAlign = TextAlign.End,
-                                modifier = Modifier
-                                    .align(CenterVertically)
-                                    .weight(2f)
-                            )
-                        }
+                        Text(
+                            text = "${coin.rank}. ${coin.name} (${coin.symbol})",
+                            style = AppTheme.typography.h1,
+                            modifier = Modifier.fillMaxWidth()
+                        )
                         Spacer(modifier = Modifier.height(15.dp))
                         Text(
                             text = coin.description,
-                            style = MaterialTheme.typography.body2
+                            style = AppTheme.typography.subtitle
                         )
                         Spacer(modifier = Modifier.height(15.dp))
                         Text(
                             text = "Tags",
-                            style = MaterialTheme.typography.h3
+                            style = AppTheme.typography.title
                         )
                         Spacer(modifier = Modifier.height(15.dp))
                         FlowRow(
@@ -80,7 +67,7 @@ fun CoinDetailScreen(
                         Spacer(modifier = Modifier.height(15.dp))
                         Text(
                             text = "Team members",
-                            style = MaterialTheme.typography.h3
+                            style = AppTheme.typography.title
                         )
                         Spacer(modifier = Modifier.height(15.dp))
                     }

@@ -4,9 +4,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.plcoding.cryptocurrencyappyt.presentation.theme.ButtonBg
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 
 @Composable
 fun OnBoardingButton(
@@ -15,9 +14,9 @@ fun OnBoardingButton(
 ) {
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = ButtonBg, contentColor = Color.White,
-    ), shape = RoundedCornerShape(size = 6.dp)) {
-        Text(text = text, style = MaterialTheme.typography.subtitle2.copy(fontWeight = FontWeight.SemiBold))
+        colors = ButtonDefaults.buttonColors(backgroundColor = AppTheme.colors.button, contentColor = Color.White,
+        ), shape = RoundedCornerShape(size = 6.dp)) {
+        Text(text = text, style = AppTheme.typography.subtitle)
     }
 }
 
@@ -29,8 +28,8 @@ fun OnBoardingTextButton(
     TextButton(onClick = onClick) {
         Text(
             text = text,
-            style = MaterialTheme.typography.subtitle2.copy(fontWeight = FontWeight.SemiBold),
-            color = MaterialTheme.colors.onPrimary
+            style = AppTheme.typography.subtitle,
+            color = AppTheme.colors.textPrimary
         )
     }
 }

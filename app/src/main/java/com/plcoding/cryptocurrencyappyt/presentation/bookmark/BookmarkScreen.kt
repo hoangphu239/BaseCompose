@@ -1,6 +1,5 @@
 package com.plcoding.cryptocurrencyappyt.presentation.bookmark
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,16 +20,15 @@ fun BookmarkScreen(
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
     LaunchedEffect(true) {
-       viewModel.getCoinsBookmark()
+        viewModel.getCoinsBookmark()
     }
 
     Box(modifier = modifier) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             val coins = viewModel.stateLocal.value.coins
-            Log.d("size_coins", coins.size.toString())
             items(coins) { coin ->
                 CoinListItem(
-                    coin = coin,
+                    coin = coin.copy(favourite = true),
                     onItemClick = {
                         navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
                     },

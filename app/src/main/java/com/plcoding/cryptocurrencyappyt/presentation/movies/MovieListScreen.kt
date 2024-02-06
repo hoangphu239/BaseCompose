@@ -1,6 +1,11 @@
-package com.plcoding.cryptocurrencyappyt.presentation.coin_list
+package com.plcoding.cryptocurrencyappyt.presentation.movies
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
@@ -14,43 +19,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.plcoding.cryptocurrencyappyt.presentation.coin_list.components.CoinListItem
-import com.plcoding.cryptocurrencyappyt.presentation.route.Screen
-
+import com.plcoding.cryptocurrencyappyt.common.Dimens
+import com.plcoding.cryptocurrencyappyt.presentation.movies.components.MovieListItem
+import com.plcoding.cryptocurrencyappyt.presentation.theme.AppTheme
 
 @Composable
-fun CoinListScreen(
+fun MovieListScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
-    viewModel: CoinListViewModel = hiltViewModel(),
+    viewModel: MovieListViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(true) {
-        viewModel.getCoinsRemote()
+        viewModel.getMoviesRemote()
     }
 
     Box(modifier = modifier) {
         when (val state = viewModel.stateRemote.collectAsState().value) {
-            is CoinListState.Success -> {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(state.coins) { coin ->
-                        CoinListItem(
-                            coin = coin,
-                            onItemClick = {
-                                navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
-                            },
-                            onClick = {
-                                viewModel.saveCoinBookmark(it)
-                            }
-                        )
+            is MovieListState.Success -> {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.MediumPadding2),
+                    contentPadding = PaddingValues(vertical = Dimens.MediumPadding2)
+                ) {
+                    items(state.movies) { movie ->
+                        MovieListItem(movie = movie)
                     }
                 }
             }
 
-            is CoinListState.Error -> {
+            is MovieListState.Error -> {
                 Text(
                     text = state.error,
-                    color = MaterialTheme.colors.error,
+                    color = AppTheme.colors.error,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -59,7 +58,7 @@ fun CoinListScreen(
                 )
             }
 
-            is CoinListState.Loading -> {
+            is MovieListState.Loading -> {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
